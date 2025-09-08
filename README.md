@@ -53,6 +53,8 @@ yarn dev
 ### Features
 - 🔍 Search, filter, sort items
 - ❤️ Save favorites with local storage
+- ⏬ Infinite scrolling for large datasets.
+  
 ### Welcome Page:
 It includes a button that navigates to the characters list page.
 <img width="1137" height="796" alt="image" src="https://github.com/user-attachments/assets/2c682448-5ddf-4db2-bc9b-08f3e8b6ff49" />
@@ -62,5 +64,12 @@ With an example of search, filter, and sort functionalities
 ### Detail Page:
 <img width="1114" height="651" alt="image" src="https://github.com/user-attachments/assets/b7ace16d-0c21-4fd1-afa7-cc5d204d6851" />
 
+## Side note
+
+If I had more time, I would:
+- Add search, sort, filter, and “clear all” functionality for favorite items stored in localStorage.
+- Improve the overall UI for a more polished and responsive experience.
+- Implement breadcrumbs for better navigation.
+- Complete full CRUD operations for the character data.
 
 
