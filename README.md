@@ -50,9 +50,7 @@ yarn dev
 
 ## Project Overview
 
-### Upon launch, users are greeted with a welcome page that navigates them to the Rick and Morty character list
-
-### Project Features
+### Features
 - 🔍 Search, filter, sort items
 - ❤️ Save favorites with local storage
 ### Welcome Page:
