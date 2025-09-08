@@ -10,11 +10,12 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
+import { useAppParams } from '@/hooks/useAppParams';
 
 const FilterBar = () => {
-  const router = useRouter();
+  const { updateUrl } = useAppParams();
   const searchParams = useSearchParams();
 
   const initialSearch = searchParams.get('name') || '';
@@ -25,25 +26,11 @@ const FilterBar = () => {
   const [filter, setFilter] = useState(initialFilter);
   const [sort, setSort] = useState(initialSort);
 
-  const updateUrl = (newParams: Record<string, string>) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    Object.entries(newParams).forEach(([key, value]) => {
-      if (value) {
-        params.set(key, value);
-      } else {
-        params.delete(key);
-      }
-    });
-
-    router.push(`?${params.toString()}`);
-  };
-
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
     updateUrl({ name: debouncedSearch });
-  }, [debouncedSearch]);
+  }, [debouncedSearch, updateUrl]);
 
   const handleFilterChange = (event: SelectChangeEvent) => {
     setFilter(event.target.value);
@@ -70,7 +57,7 @@ const FilterBar = () => {
       {/* Filter */}
       <FormControl className="flex-1" sx={{ minWidth: 180 }}>
         <InputLabel>Status</InputLabel>
-        <Select value={filter} onChange={handleFilterChange} label="Status">
+        <Select value={filter} onChange={handleFilterChange} label="Status" variant="outlined">
           <MenuItem value="">All</MenuItem>
           <MenuItem value="alive">Alive</MenuItem>
           <MenuItem value="dead">Dead</MenuItem>
@@ -81,7 +68,7 @@ const FilterBar = () => {
       {/* Sort */}
       <FormControl className="flex-1" sx={{ minWidth: 180 }}>
         <InputLabel>Sort</InputLabel>
-        <Select value={sort} onChange={handleSortChange} label="Sort">
+        <Select value={sort} onChange={handleSortChange} label="Sort" variant="outlined">
           <MenuItem value="name-asc">Name (A → Z)</MenuItem>
           <MenuItem value="name-desc">Name (Z → A)</MenuItem>
         </Select>

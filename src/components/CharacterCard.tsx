@@ -3,7 +3,7 @@
 import { Card, CardContent, CardMedia, Typography, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { ICharacter } from '@/lib/types';
 
 type TProps = {
@@ -13,7 +13,8 @@ type TProps = {
 export default function CharacterCard({ character }: TProps) {
   const [favorite, setFavorite] = useState(false);
 
-  const onSelectFavorite = (id: string) => {
+  const onToggleFavorite = (e: MouseEvent) => {
+    e.preventDefault();
     setFavorite((prev) => !prev);
   };
 
@@ -22,7 +23,7 @@ export default function CharacterCard({ character }: TProps) {
       <CardMedia component="img" height="200" image={character.image} alt={character.name} />
       <CardContent>
         <Typography variant="h6">{character.name}</Typography>
-        <IconButton onClick={() => setFavorite((prev) => !prev)} color="primary">
+        <IconButton onClick={onToggleFavorite} color="primary">
           {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       </CardContent>
