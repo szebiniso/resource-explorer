@@ -9,10 +9,13 @@ import {
   InputLabel,
   Select,
   SelectChangeEvent,
+  IconButton,
 } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useAppParams } from '@/hooks/useAppParams';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const FilterBar = () => {
   const { updateUrl } = useAppParams();
@@ -21,6 +24,7 @@ const FilterBar = () => {
   const initialSearch = searchParams.get('name') || '';
   const initialFilter = searchParams.get('status') || '';
   const initialSort = searchParams.get('sort') || '';
+  const isFavorite = !!searchParams.get('isFavorite');
 
   const [search, setSearch] = useState(initialSearch);
   const [filter, setFilter] = useState(initialFilter);
@@ -44,7 +48,6 @@ const FilterBar = () => {
 
   return (
     <Box display="flex" className="flex" gap={2} flexWrap="wrap" mb={3}>
-      {/* Search */}
       <TextField
         className="w-fit flex-3"
         label="Search"
@@ -53,8 +56,6 @@ const FilterBar = () => {
         onChange={(e) => setSearch(e.target.value)}
         sx={{ minWidth: 200 }}
       />
-
-      {/* Filter */}
       <FormControl className="flex-1" sx={{ minWidth: 180 }}>
         <InputLabel>Status</InputLabel>
         <Select value={filter} onChange={handleFilterChange} label="Status" variant="outlined">
@@ -64,8 +65,6 @@ const FilterBar = () => {
           <MenuItem value="unknown">Unknown</MenuItem>
         </Select>
       </FormControl>
-
-      {/* Sort */}
       <FormControl className="flex-1" sx={{ minWidth: 180 }}>
         <InputLabel>Sort</InputLabel>
         <Select value={sort} onChange={handleSortChange} label="Sort" variant="outlined">
@@ -73,6 +72,9 @@ const FilterBar = () => {
           <MenuItem value="name-desc">Name (Z → A)</MenuItem>
         </Select>
       </FormControl>
+      <IconButton onClick={() => updateUrl({ isFavorite: isFavorite ? '' : 'true' })} color="error">
+        {isFavorite ? <FavoriteIcon fontSize="large" /> : <FavoriteBorderIcon fontSize="large" />}
+      </IconButton>
     </Box>
   );
 };

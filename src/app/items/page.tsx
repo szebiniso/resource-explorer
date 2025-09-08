@@ -1,20 +1,22 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { ICharacter } from '@/lib/types';
 import { getCharacters } from '@/lib/api';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import CharacterCard from '@/components/CharacterCard';
 import FilterBar from '@/components/Filter';
 import { useSort } from '@/hooks/useSort';
 import Loading from '@/app/loading';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sort = searchParams.get('sort') || '';
-  useParams();
+  const isFavorite = searchParams.get('isFavorite') || '';
+  const [favorites] = useLocalStorage<ICharacter[]>('favorites', []);
 
   const params = useMemo(() => {
     return {
@@ -34,6 +36,13 @@ const Page = () => {
     router.push(`/items/${id}`);
   };
 
+  const filteredCharacters = useMemo(() => {
+    if (isFavorite) {
+      return favorites;
+    }
+    return characters;
+  }, [isFavorite, favorites, sort, data]);
+
   return (
     <div>
       <FilterBar />
@@ -43,7 +52,7 @@ const Page = () => {
       ) : (
         <div className="overflow-scroll h-[600px]">
           <div className="grid sm:grid-cols-4 gap-6">
-            {characters.map((item) => (
+            {filteredCharacters.map((item) => (
               <CharacterCard
                 action={() => goToDetailPage(item.id)}
                 key={item.id}
