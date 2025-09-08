@@ -8,7 +8,6 @@ const apiRoot = axios.create({
 apiRoot.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    // console.error('API Error:', error.message);
     return Promise.reject(error);
   },
 );
@@ -21,12 +20,13 @@ function handleApiError(error: unknown): never {
   throw new Error('Unexpected error');
 }
 
-export const getCharacters = async (params: TApiParams) => {
+export const getCharacters = async (params: TApiParams, signal?: AbortSignal) => {
   try {
     const response = await apiRoot.get<CharacterResponse>(`/character`, {
       params,
+      signal,
     });
-    return response.data.results;
+    return response.data;
   } catch (error) {
     handleApiError(error);
   }

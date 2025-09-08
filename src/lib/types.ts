@@ -1,8 +1,7 @@
 export type TApiParams = {
   name?: string | null;
   status?: string | null;
-  offset?: string;
-  limit?: string;
+  page?: number;
 };
 
 export interface ICharacter {

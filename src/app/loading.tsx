@@ -1,20 +1,28 @@
 import React from 'react';
-import { Skeleton, Card, CardContent, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import LoadingBlock from '@/components/LoadingBlock';
 
-const Loading = () => {
-  return (
-    <Card sx={{ maxWidth: 300 }}>
-      <Skeleton variant="rectangular" height={200} />
-      <CardContent>
-        <Typography variant="h6">
-          <Skeleton width="80%" />
-        </Typography>
-        <Typography variant="body2">
-          <Skeleton width="60%" />
-        </Typography>
-      </CardContent>
-    </Card>
-  );
+type TProps = {
+  count?: number;
+};
+
+const Loading = ({ count }: TProps) => {
+  if (count) {
+    return (
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        gap={3}
+        sx={{ width: '100%' }}
+      >
+        {Array.from({ length: count }).map((_, index) => (
+          <LoadingBlock key={index} />
+        ))}
+      </Box>
+    );
+  }
+
+  return <LoadingBlock />;
 };
 
 export default Loading;

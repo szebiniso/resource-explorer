@@ -19,7 +19,15 @@ export default function CharacterCard({ character, action }: TProps) {
       <CardMedia component="img" height="200" image={character.image} alt={character.name} />
       <CardContent className="flex justify-between items-center">
         <Typography variant="h6">{character.name}</Typography>
-        <IconButton onClick={toggleFavorite} color="error" size="large" className="mt-2">
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavorite();
+          }}
+          color="error"
+          size="large"
+          className="mt-2"
+        >
           {isFavorite ? (
             <FavoriteIcon fontSize="medium" />
           ) : (

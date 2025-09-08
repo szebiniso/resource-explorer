@@ -1,10 +1,12 @@
 'use client';
+
+import { use } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import { ICharacter } from '@/lib/types';
 import { getCharacterById } from '@/lib/api';
-import CharacterDetail from '@/components/CharacterDetail';
-import { useQuery } from '@tanstack/react-query';
 import Loading from '@/app/loading';
-import { use } from 'react';
+import CharacterDetail from '@/components/CharacterDetail';
 
 interface Props {
   params: Promise<{ id: string }>;

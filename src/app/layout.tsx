@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
+import React, { ReactNode } from 'react';
+
 import './globals.css';
 import QueryProvider from '../providers/QueryProvider';
 import CustomThemeProvider from '@/providers/ThemeProvider';
-import React, { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +20,7 @@ export default function RootLayout({
       <body>
         <CustomThemeProvider>
           <QueryProvider>
-            <main className="px-40 py-20 h-screen overflow-hidden">{children}</main>
+            <main className="px-40 pt-12 h-screen overflow-hidden">{children}</main>
           </QueryProvider>
         </CustomThemeProvider>
       </body>
