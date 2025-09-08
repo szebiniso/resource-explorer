@@ -15,7 +15,10 @@ export const useAppParams = () => {
       }
     });
 
-    router.push(`?${params.toString()}`);
+    const newUrl = `?${params.toString()}`;
+    if (newUrl !== `?${searchParams.toString()}`) {
+      router.push(newUrl);
+    }
   };
 
   return { updateUrl };
