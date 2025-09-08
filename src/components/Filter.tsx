@@ -28,9 +28,9 @@ const FilterBar = () => {
 
   const debouncedSearch = useDebounce(search, 500);
 
-  useEffect(() => {
-    updateUrl({ name: debouncedSearch });
-  }, [debouncedSearch, updateUrl]);
+  // useEffect(() => {
+  //   updateUrl({ name: debouncedSearch });
+  // }, [debouncedSearch, updateUrl]);
 
   const handleFilterChange = (event: SelectChangeEvent) => {
     setFilter(event.target.value);

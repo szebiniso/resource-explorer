@@ -6,7 +6,6 @@ import { ICharacter } from '@/lib/types';
 import { getCharacters } from '@/lib/api';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import CharacterCard from '@/components/CharacterCard';
-import Link from 'next/link';
 import FilterBar from '@/components/Filter';
 import { useSort } from '@/hooks/useSort';
 
@@ -25,7 +24,6 @@ const Page = () => {
   const { data } = useQuery<ICharacter[]>({
     queryKey: ['characters', params],
     queryFn: () => getCharacters(params),
-    staleTime: 1000 * 60,
   });
 
   const characters = useSort(sort, data);
@@ -42,13 +40,7 @@ const Page = () => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 auto-rows-fr">
         {characters &&
           characters.map((item) => (
-            <Link className="w-full" key={item.id} href={`/items/${item.id}`}>
-              <CharacterCard
-                action={() => goToDetailPage(item.id)}
-                key={item.id}
-                character={item}
-              />
-            </Link>
+            <CharacterCard action={() => goToDetailPage(item.id)} key={item.id} character={item} />
           ))}
       </div>
     </div>
