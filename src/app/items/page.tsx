@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { ICharacter } from '@/lib/types';
 import { getCharacters } from '@/lib/api';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import CharacterCard from '@/components/CharacterCard';
 import Link from 'next/link';
 import FilterBar from '@/components/Filter';
@@ -30,6 +30,12 @@ const Page = () => {
 
   const characters = useSort(sort, data);
 
+  const router = useRouter();
+
+  const goToDetailPage = (id: number) => {
+    router.push(`/items/${id}`);
+  };
+
   return (
     <div>
       <FilterBar />
@@ -37,7 +43,11 @@ const Page = () => {
         {characters &&
           characters.map((item) => (
             <Link className="w-full" key={item.id} href={`/items/${item.id}`}>
-              <CharacterCard key={item.id} character={item} />
+              <CharacterCard
+                action={() => goToDetailPage(item.id)}
+                key={item.id}
+                character={item}
+              />
             </Link>
           ))}
       </div>
