@@ -7,30 +7,35 @@ import { getCharacters } from '@/lib/api';
 import { useSearchParams } from 'next/navigation';
 import CharacterCard from '@/components/CharacterCard';
 import Link from 'next/link';
+import FilterBar from '@/components/Filter';
 
 const Page = () => {
   const searchParams = useSearchParams();
 
   const params = useMemo(() => {
     return {
-      search: searchParams.get('search'),
+      name: searchParams.get('name'),
+      status: searchParams.get('status'),
     };
   }, [searchParams]);
 
   const { data, error, isLoading } = useQuery<ICharacter[]>({
-    queryKey: ['characters'],
+    queryKey: ['characters', params],
     queryFn: () => getCharacters(params),
     staleTime: 1000 * 60,
   });
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 auto-rows-fr">
-      {data &&
-        data.map((item) => (
-          <Link key={item.id} href={`/items/${item.id}`}>
-            <CharacterCard key={item.id} character={item} />
-          </Link>
-        ))}
+    <div>
+      <FilterBar />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 auto-rows-fr">
+        {data &&
+          data.map((item) => (
+            <Link className="w-full" key={item.id} href={`/items/${item.id}`}>
+              <CharacterCard key={item.id} character={item} />
+            </Link>
+          ))}
+      </div>
     </div>
   );
 };

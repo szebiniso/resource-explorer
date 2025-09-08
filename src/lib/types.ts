@@ -1,5 +1,6 @@
 export type TApiParams = {
-  search?: string | null;
+  name?: string | null;
+  status?: string | null;
   offset?: string;
   limit?: string;
 };
