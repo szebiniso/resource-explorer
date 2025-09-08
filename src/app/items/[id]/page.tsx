@@ -4,13 +4,14 @@ import { getCharacterById } from '@/lib/api';
 import CharacterDetail from '@/components/CharacterDetail';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '@/app/loading';
+import { use } from 'react';
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function CharacterDetailPage({ params }: Props) {
-  const { id } = params;
+  const { id } = use(params);
 
   const {
     data: character,

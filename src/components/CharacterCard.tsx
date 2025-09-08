@@ -15,17 +15,17 @@ export default function CharacterCard({ character, action }: TProps) {
   const [favorite, setFavorite] = useState(false);
 
   const onToggleFavorite = (e: MouseEvent) => {
-    e.preventDefault();
+    e.stopPropagation();
     setFavorite((prev) => !prev);
   };
 
   return (
-    <Card onClick={action} sx={{ maxWidth: 300 }}>
+    <Card onClick={action} className="max-w-[300px] cursor-pointer">
       <CardMedia component="img" height="200" image={character.image} alt={character.name} />
-      <CardContent>
+      <CardContent className="flex justify-between items-center">
         <Typography variant="h6">{character.name}</Typography>
-        <IconButton onClick={onToggleFavorite} color="primary">
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        <IconButton onClick={onToggleFavorite} color="error" size="large" className="mt-2">
+          {favorite ? <FavoriteIcon fontSize="large" /> : <FavoriteBorderIcon fontSize="medium" />}
         </IconButton>
       </CardContent>
     </Card>

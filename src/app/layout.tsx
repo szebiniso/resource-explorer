@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <CustomThemeProvider>
           <QueryProvider>
-            <main className="px-40 py-20">{children}</main>
+            <main className="px-40 py-20 h-screen overflow-hidden">{children}</main>
           </QueryProvider>
         </CustomThemeProvider>
       </body>

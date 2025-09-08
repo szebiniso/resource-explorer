@@ -41,10 +41,16 @@ const Page = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 auto-rows-fr">
-          {characters.map((item) => (
-            <CharacterCard action={() => goToDetailPage(item.id)} key={item.id} character={item} />
-          ))}
+        <div className="overflow-scroll h-[600px]">
+          <div className="grid sm:grid-cols-4 gap-6">
+            {characters.map((item) => (
+              <CharacterCard
+                action={() => goToDetailPage(item.id)}
+                key={item.id}
+                character={item}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>
